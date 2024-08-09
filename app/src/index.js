@@ -6,6 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Error from './pages/error';
 import Admin from './pages/admin';
+import Insert from './pages/insert';
+import Get from './pages/get';
+import Update from './pages/update';
+import Delete from './pages/delete';
 
 
 const routes = createBrowserRouter(
@@ -18,7 +22,36 @@ const routes = createBrowserRouter(
     {
       path : '/admin',
       element : <Admin/>,
-      errorElement : <Error/>
+      errorElement : <Error/>,
+      children : [
+        {
+          path: '/admin/insert',
+          element : <Insert/>,
+          errorElement : <Error/>
+        },
+        {
+          path : '/admin/get',
+          element : <Get/>,
+          errorElement : <Error/>
+        },
+        {
+          path : '/admin/update',
+          element : <Update/>,
+          errorElement : <Error/>,
+          children : [
+            {
+              path : '/admin/update/:word',
+              element : <Update/>,
+              errorElement : <Error/>,
+            }
+          ]
+        },
+        {
+          path : '/admin/delete',
+          element : <Delete/>,
+          errorElement : <Error/>
+        },
+      ]
     }
 
 
