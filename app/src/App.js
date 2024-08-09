@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import Nav from "./pages/nav";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+      <Nav/>
+      <div className="container">
+        <section class="section is-medium">
+          <h1 class="title">Welcome To Hmong Medical Terms</h1>
+          <h2 class="subtitle">
+            A webpage dedicated to providing other Hmong medical students the medical terms in Hmong.
+          </h2>
+        </section>
+      </div>
     </div>
   );
 }

@@ -52,6 +52,20 @@ server.get("/api/getAllData", async (request, response) => {
     }
 })
 
+server.post('/api/insertData', async (request, response) => {
+
+    const results = null;
+
+    if(results != null) {
+        response.status(200).json({'results' : 'successful', 'data' : results})
+
+    } else {
+        response.status(200).json({'results' : 'failed'})
+
+    }
+
+})
+
 server.listen(PORT, ()=>{
     console.log(`Listening to Port ${PORT}`);
 })

@@ -57,10 +57,11 @@ async function insertData(data) {
     try {
         const client = await db.connect();
 
-        const data = [JSON.stringify({'dlawb' : 'toom ntawm plab', 'leeg' : 'toom ntawm plaab'})];
-
+        // const data = [JSON.stringify({'dlawb' : 'toom ntawm plab', 'leeg' : 'toom ntawm plaab'})];
         const query = "INSERT INTO hmongmedicalwords (word, wordtype, definitions) VALUES($1, $2, $3)";
-        const values = ['abdonmen', 'noun', data];
+        // const values = ['abdonmen', 'noun', data];
+        const values = [];
+
 
         const results = await client.query(query, values);
         console.log(results);
