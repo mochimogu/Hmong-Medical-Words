@@ -39,7 +39,9 @@ async function getData() {
         const query = "SELECT * FROM hmongmedicalwords";
         const results = await client.query(query);
         // console.log(results.rows);
-
+        const def = JSON.parse(results.rows[0].definitions[0]);
+        results.rows[0].definitions[0] = def;
+        
         await client.release();
 
         return results.rows;
@@ -74,7 +76,54 @@ async function insertData(data) {
         console.log(error);
         return 1;   
     }
+}
+
+async function getDataByName(name) {
+    
+    try {
+
+        const client = await db.connect();
+        const query = "SELECT * FROM hmongmedicalwords WHERE word = $1";
+        const values = [name];
+
+        const results = await client.query(query, values);
+        console.log(results.rows[0].definitions[0]);
+
+        const def = JSON.parse(results.rows[0].definitions[0]);
+        results.rows[0].definitions[0] = def;
+
+        await client.release();
+
+        return results.rows
+        
+    } catch (error) {
+        console.log(error);
+    }
 
 }
 
-module.exports = { createTable, getData, insertData };
+async function getDataByType(type) {
+    
+    try {
+
+        const client = await db.connect();
+        const query = "SELECT * FROM hmongmedicalwords WHERE wordtype = $1";
+        const values = [type];
+
+        const results = await client.query(query, values);
+        console.log(results.rows);
+        
+        const def = JSON.parse(results.rows[0].definitions[0]);
+        results.rows[0].definitions[0] = def;
+
+        await client.release();
+
+        return results.rows
+        
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+module.exports = { createTable, getData, insertData, getDataByName, getDataByType };
