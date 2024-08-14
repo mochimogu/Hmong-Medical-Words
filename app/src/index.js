@@ -10,6 +10,7 @@ import Insert from './pages/insert';
 import Get from './pages/get';
 import Update from './pages/update';
 import Delete from './pages/delete';
+import UpdateWord from './pages/updateword';
 
 
 const routes = createBrowserRouter(
@@ -41,7 +42,7 @@ const routes = createBrowserRouter(
           children : [
             {
               path : '/admin/update/:word',
-              element : <Update/>,
+              element : <UpdateWord/>,
               errorElement : <Error/>,
             }
           ]
@@ -63,9 +64,7 @@ const routes = createBrowserRouter(
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={routes}/>
-  </React.StrictMode>
+  <RouterProvider router={routes}/>
 );
 
 // If you want to start measuring performance in your app, pass a function
