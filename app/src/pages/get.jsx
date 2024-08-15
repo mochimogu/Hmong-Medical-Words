@@ -88,11 +88,11 @@ export default function Get() {
                             (data === undefined) ? <div></div> :
                             <div>
                                 {data.map((items) => (
-                                    <div>
-                                        <h1>{items.word}</h1>
-                                        <h1>{items.wordtype}</h1>
-                                        <h1>{items.definitions[0].leeg}</h1>
-                                        <h1>{items.definitions[0].dlawb}</h1>
+                                    <div className="box">
+                                        <h1> TERM : {items.word}</h1>
+                                        <h1>TYPE : {items.wordtype}</h1>
+                                        <h1>LEEG : {items.definitions[0].leeg}</h1>
+                                        <h1>DLAWB : {items.definitions[0].dlawb}</h1>
                                     </div>
                                 ))}
                             </div>
@@ -115,13 +115,13 @@ export default function Get() {
                     </div>
                     <div className="m-3 p-2">    
                         {
-                            (typeData === undefined || type === "") ?
+                            (typeData === undefined) ?
                                 <div></div> : <div>{typeData.map((items) => (
-                                    <div>
-                                        <h1>{items.word}</h1>
-                                        <h1>{items.wordtype}</h1>
-                                        <h1>{items.definitions[0].leeg}</h1>
-                                        <h1>{items.definitions[0].dlawb}</h1>
+                                    <div className="box">
+                                        <h1> TERM : {items.word}</h1>
+                                        <h1>TYPE : {items.wordtype}</h1>
+                                        <h1>LEEG : {items.definitions[0].leeg}</h1>
+                                        <h1>DLAWB : {items.definitions[0].dlawb}</h1>
                                     </div>
                                 ))}</div>
                         }                         
@@ -143,13 +143,13 @@ export default function Get() {
                     </div>
                     <div className="m-3 p-2">
                         {
-                            (nameData === undefined || name === "") ? 
+                            (nameData === undefined) ? 
                                 <div></div> : <div>{nameData.map((items) => (
-                                    <div>
-                                        <h1>{items.word}</h1>
-                                        <h1>{items.wordtype}</h1>
-                                        <h1>{items.definitions[0].leeg}</h1>
-                                        <h1>{items.definitions[0].dlawb}</h1>
+                                    <div className="box">
+                                        <h1> TERM : {items.word}</h1>
+                                        <h1>TYPE : {items.wordtype}</h1>
+                                        <h1>LEEG : {items.definitions[0].leeg}</h1>
+                                        <h1>DLAWB : {items.definitions[0].dlawb}</h1>
                                     </div>
                                 ))}</div>
                         }                        

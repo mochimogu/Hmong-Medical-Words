@@ -6,6 +6,7 @@ const cors = require('cors');
 
 server.use(express.json());
 server.use(cors());
+server.use(express.urlencoded({extended : true}));
 
 const db = require('../backend/database');
 
@@ -58,14 +59,22 @@ server.get("/api/getAllData", async (request, response) => {
 
 server.post('/api/insertData', async (request, response) => {
 
-    const results = null;
+    // const results = request.body
+    // console.log(results);
+
+    const data = {
+        'word' : request.body.word,
+        'wordtype' : request.body.wordtype,
+        'definitions' : [{'dlawb' : request.body.white, 'leeg' : request.body.green}]
+    }
+
+    const results = await db.insertData(data);
 
     if(results != null) {
         response.status(200).json({'results' : 'successful', 'data' : results})
 
     } else {
         response.status(200).json({'results' : 'failed'})
-
     }
 
 })
@@ -105,6 +114,28 @@ server.post('/api/getDataByType', async (request, response) => {
     if(results != null) {
         response.status(200).json({'results' : 'successful', 'data' : results, 'def' : def})
 
+    } else {
+        response.status(200).json({'results' : 'failed'})
+
+    }
+
+})
+
+server.post('/api/updateword', async (request, response) => {
+
+    // console.log("request" , request.body);
+
+    const data = {
+        'id' : request.body.id,
+        'word' : request.body.word,
+        'wordtype' : request.body.wordtype,
+        'definitions' : [{'dlawb' : request.body.white, 'leeg' : request.body.green}]
+    }
+
+    const results = await db.updateWord(data);
+
+    if(results != null) {
+        response.status(200).json({'results' : 'successful', 'data' : results})
     } else {
         response.status(200).json({'results' : 'failed'})
 

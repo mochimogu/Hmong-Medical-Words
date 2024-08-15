@@ -38,9 +38,12 @@ async function getData() {
 
         const query = "SELECT * FROM hmongmedicalwords";
         const results = await client.query(query);
-        // console.log(results.rows);
-        const def = JSON.parse(results.rows[0].definitions[0]);
-        results.rows[0].definitions[0] = def;
+
+        for(let i = 0; i < results.rows.length; i++) {
+            results.rows[i].definitions[0] = JSON.parse(results.rows[i].definitions[0]);
+        }
+        // const def = JSON.parse(results.rows[0].definitions[0]);
+        // results.rows.definitions[0] = def;
         
         await client.release();
 
@@ -57,16 +60,19 @@ async function getData() {
 async function insertData(data) {
 
     try {
+
+        console.log(data);
+
         const client = await db.connect();
 
         // const data = [JSON.stringify({'dlawb' : 'toom ntawm plab', 'leeg' : 'toom ntawm plaab'})];
         const query = "INSERT INTO hmongmedicalwords (word, wordtype, definitions) VALUES($1, $2, $3)";
         // const values = ['abdonmen', 'noun', data];
-        const values = [];
+        const values = [data.word, data.wordtype, data.definitions];
 
 
         const results = await client.query(query, values);
-        console.log(results);
+        console.log(results.rows);
 
         await client.release();
 
@@ -87,10 +93,10 @@ async function getDataByName(name) {
         const values = [name];
 
         const results = await client.query(query, values);
-        console.log(results.rows[0].definitions[0]);
 
-        const def = JSON.parse(results.rows[0].definitions[0]);
-        results.rows[0].definitions[0] = def;
+        for(let i = 0; i < results.rows.length; i++) {
+            results.rows[i].definitions[0] = JSON.parse(results.rows[i].definitions[0]);
+        }
 
         await client.release();
 
@@ -111,10 +117,11 @@ async function getDataByType(type) {
         const values = [type];
 
         const results = await client.query(query, values);
-        console.log(results.rows);
+        // console.log(results.rows);
         
-        const def = JSON.parse(results.rows[0].definitions[0]);
-        results.rows[0].definitions[0] = def;
+        for(let i = 0; i < results.rows.length; i++) {
+            results.rows[i].definitions[0] = JSON.parse(results.rows[i].definitions[0]);
+        }
 
         await client.release();
 
@@ -126,4 +133,48 @@ async function getDataByType(type) {
 
 }
 
-module.exports = { createTable, getData, insertData, getDataByName, getDataByType };
+async function updateWord(data) {
+
+
+    try {
+
+        console.log(data);
+
+        const client = await db.connect();
+
+        let query = "SELECT * FROM hmongmedicalwords WHERE id = $1";
+        let values = [data.id];
+
+        let results = await client.query(query, values);
+
+
+        results.rows[0].definitions[0] = JSON.parse(results.rows[0].definitions[0]);
+
+        // console.log("database:", results.rows);
+
+        if(data !== results.rows[0]) {
+            query = "UPDATE hmongmedicalwords SET word = $1, wordtype = $2, definitions = $3 WHERE id = $4";
+            values = [data.word, data.wordtype, data.definitions, data.id];
+
+            results = await client.query(query, values);
+
+            await client.release();
+            
+            return results.rows;
+        }
+
+        await client.release();
+        
+        return 0;
+
+        
+    } catch (error) {
+        console.log(error);
+        return 1;
+    }
+
+
+}
+
+
+module.exports = { createTable, getData, insertData, getDataByName, getDataByType, updateWord };
