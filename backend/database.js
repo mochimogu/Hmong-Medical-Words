@@ -172,9 +172,39 @@ async function updateWord(data) {
         console.log(error);
         return 1;
     }
+}
 
+async function deleteWord(data) {
+
+    try {
+        console.log(data);
+        
+        const client = await db.connect();
+
+        let query = "DELETE FROM hmongmedicalwords WHERE word = $1";
+        let values = [data.word];
+
+        await client.query(query,values);
+
+        query = "SELECT * FROM hmongmedicalwords WHERE wordtype = $1";
+        values = [data.type];
+        
+        const results = await client.query(query,values);
+        
+        for(let i = 0; i < results.rows.length; i++) {
+            results.rows[i].definitions[0] = JSON.parse(results.rows[i].definitions[0]);
+        }
+
+        await client.release();
+
+        return results.rows;
+
+
+    } catch (error) {
+        console.log(error);
+        return 1;
+    }
 
 }
 
-
-module.exports = { createTable, getData, insertData, getDataByName, getDataByType, updateWord };
+module.exports = { createTable, getData, insertData, getDataByName, getDataByType, updateWord, deleteWord };

@@ -143,6 +143,24 @@ server.post('/api/updateword', async (request, response) => {
 
 })
 
+
+server.delete('/api/deleteword/:type/:word', async (request, response) => {
+
+    console.log(request.params.word)
+    const data = {"word" : request.params.word, 'type' : request.params.type};
+    
+    const results = await db.deleteWord(data);
+
+    if(results != 1) {
+        response.status(200).json({'results' : 'successful', 'data' : results})
+    } else {
+        response.status(200).json({'results' : 'failed'})
+
+    }
+
+})
+
+
 server.listen(PORT, ()=>{
     console.log(`Listening to Port ${PORT}`);
 })
