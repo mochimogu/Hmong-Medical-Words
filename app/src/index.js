@@ -11,6 +11,8 @@ import Get from './pages/get';
 import Update from './pages/update';
 import Delete from './pages/delete';
 import UpdateWord from './pages/updateword';
+import AllTerms from './pages/allterms';
+import Flashcards from './pages/flashcards';
 
 
 const routes = createBrowserRouter(
@@ -19,6 +21,22 @@ const routes = createBrowserRouter(
       path : '/',
       element : <App/>,
       errorElement : <Error/>
+    },
+    {
+      path : '/terms/all',
+      element : <AllTerms/>,
+      errorElement : <Error/>
+    },
+    {
+      path : '/terms/flashcards',
+      element : <Flashcards/>,
+      errorElement : <Error/>,
+      children : [
+        {
+          path : "/terms/flashcards/:categories",
+          errorElement : <Error/>
+        }
+      ]
     },
     {
       path : '/admin',
