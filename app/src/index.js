@@ -13,6 +13,7 @@ import Delete from './pages/delete';
 import UpdateWord from './pages/updateword';
 import AllTerms from './pages/allterms';
 import Flashcards from './pages/flashcards';
+import Categories from './pages/categories';
 
 
 const routes = createBrowserRouter(
@@ -34,7 +35,8 @@ const routes = createBrowserRouter(
       children : [
         {
           path : "/terms/flashcards/:categories",
-          errorElement : <Error/>
+          errorElement : <Error/>,
+          element : <Categories/>
         }
       ]
     },
