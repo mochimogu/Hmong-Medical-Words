@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-// import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -14,6 +13,7 @@ import UpdateWord from './pages/updateword';
 import AllTerms from './pages/allterms';
 import Flashcards from './pages/flashcards';
 import Categories from './pages/categories';
+import Search from './pages/search';
 
 
 const routes = createBrowserRouter(
@@ -39,6 +39,11 @@ const routes = createBrowserRouter(
           element : <Categories/>
         }
       ]
+    },
+    {
+      path : '/search/:word',
+      element : <Search/>,
+      errorElement : <Error/>,
     },
     {
       path : '/admin',

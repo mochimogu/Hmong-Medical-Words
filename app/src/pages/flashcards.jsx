@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Nav from "./nav";
-import axios from "axios";
 import { Outlet } from "react-router-dom";
 
 
